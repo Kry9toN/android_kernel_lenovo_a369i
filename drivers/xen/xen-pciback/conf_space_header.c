@@ -24,8 +24,8 @@ struct pci_bar_info {
 
 /* Bits guests are allowed to control in permissive mode. */
 #define PCI_COMMAND_GUEST (PCI_COMMAND_MASTER|PCI_COMMAND_SPECIAL| \
-			  PCI_COMMAND_INVALIDATE|PCI_COMMAND_VGA_PALETTE| \
-			  PCI_COMMAND_WAIT|PCI_COMMAND_FAST_BACK)
+			   PCI_COMMAND_INVALIDATE|PCI_COMMAND_VGA_PALETTE| \
+			   PCI_COMMAND_WAIT|PCI_COMMAND_FAST_BACK)
 
 static void *command_init(struct pci_dev *dev, int offset)
 {
@@ -34,6 +34,7 @@ static void *command_init(struct pci_dev *dev, int offset)
 
 	if (!cmd)
 		return ERR_PTR(-ENOMEM);
+
 	err = pci_read_config_word(dev, PCI_COMMAND, &cmd->val);
 	if (err) {
 		kfree(cmd);

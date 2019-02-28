@@ -1707,7 +1707,7 @@ static void kick_requests(struct ceph_osd_client *osdc, bool force_resend,
 		if (req->r_osd == NULL || err > 0) {
 			if (req->r_osd == NULL) {
 				dout("lingering %p tid %llu maps to no osd\n",
-					req, req->r_tid);
+				     req, req->r_tid);
 				/*
 				 * A homeless lingering request makes
 				 * no sense, as it's job is to keep
@@ -1718,7 +1718,7 @@ static void kick_requests(struct ceph_osd_client *osdc, bool force_resend,
 				 * that can tell us where to send it.
 				 */
 				needmap++;
-		}
+			}
 
 			dout("kicking lingering %p tid %llu osd%d\n", req,
 			     req->r_tid, req->r_osd ? req->r_osd->o_osd : -1);

@@ -1024,11 +1024,7 @@ int check_disk_change(struct block_device *bdev)
 	unsigned int events;
 
 	events = disk_clear_events(disk, DISK_EVENT_MEDIA_CHANGE |
-#ifdef CONFIG_MTK_MULTI_PARTITION_MOUNT_ONLY_SUPPORT	
-				   DISK_EVENT_EJECT_REQUEST | DISK_EVENT_MEDIA_DISAPPEAR);   //add DISK_EVENT_MEDIA_DISAPPEAR for sd hotplug
-#else
-					 DISK_EVENT_EJECT_REQUEST);
-#endif				   
+				   DISK_EVENT_EJECT_REQUEST);
 	if (!(events & DISK_EVENT_MEDIA_CHANGE))
 		return 0;
 
@@ -1594,7 +1590,6 @@ static const struct address_space_operations def_blk_aops = {
 	.writepages	= generic_writepages,
 	.releasepage	= blkdev_releasepage,
 	.direct_IO	= blkdev_direct_IO,
-	.is_dirty_writeback = buffer_check_dirty_writeback,
 };
 
 const struct file_operations def_blk_fops = {

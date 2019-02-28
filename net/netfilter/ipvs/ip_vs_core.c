@@ -651,7 +651,7 @@ static inline int ip_vs_gather_frags(struct sk_buff *skb, u_int32_t user)
 }
 
 static int ip_vs_route_me_harder(int af, struct sk_buff *skb,
-				unsigned int hooknum)
+				 unsigned int hooknum)
 {
 	if (!sysctl_snat_reroute(skb))
 		return 0;

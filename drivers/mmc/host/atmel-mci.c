@@ -1322,8 +1322,8 @@ static void atmci_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
 			clkdiv = DIV_ROUND_UP(host->bus_hz, clock_min) - 2;
 			if (clkdiv < 0) {
 				dev_warn(&mmc->class_dev,
-					"clock %u too fast; using %lu\n",
-					clock_min, host->bus_hz / 2);
+					 "clock %u too fast; using %lu\n",
+					 clock_min, host->bus_hz / 2);
 				clkdiv = 0;
 			} else if (clkdiv > 511) {
 				dev_warn(&mmc->class_dev,

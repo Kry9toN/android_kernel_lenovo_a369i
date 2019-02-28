@@ -155,7 +155,6 @@ struct lockdep_map {
 	int				cpu;
 	unsigned long			ip;
 #endif
-
 };
 
 static inline void lockdep_copy_map(struct lockdep_map *to,
@@ -280,7 +279,6 @@ extern void lockdep_on(void);
 extern void lockdep_init_map(struct lockdep_map *lock, const char *name,
 			     struct lock_class_key *key, int subclass);
 
-
 /*
  * To initialize a lockdep_map statically use this macro.
  * Note that _name must not be NULL.
@@ -376,7 +374,6 @@ static inline void lockdep_off(void)
 static inline void lockdep_on(void)
 {
 }
-
 
 # define lock_acquire(l, s, t, r, c, n, i)	do { } while (0)
 # define lock_release(l, n, i)			do { } while (0)

@@ -765,7 +765,6 @@ static int ptrace_resume(struct task_struct *child, long request,
 	need_siglock = data && !thread_group_empty(current);
 	if (need_siglock)
 		spin_lock_irq(&child->sighand->siglock);
-
 	child->exit_code = data;
 	wake_up_state(child, __TASK_TRACED);
 	if (need_siglock)

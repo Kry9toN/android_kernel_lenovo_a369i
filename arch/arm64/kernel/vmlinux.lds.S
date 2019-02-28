@@ -41,6 +41,7 @@ SECTIONS
 	}
 	.text : {			/* Real text segment		*/
 		_stext = .;		/* Text and read-only data	*/
+			*(.smp.pen.text)
 			__exception_text_start = .;
 			*(.exception.text)
 			__exception_text_end = .;

@@ -5704,7 +5704,7 @@ int si_set_uvd_clocks(struct radeon_device *rdev, u32 vclk, u32 dclk)
 	WREG32_P(CG_UPLL_FUNC_CNTL, UPLL_BYPASS_EN_MASK, ~UPLL_BYPASS_EN_MASK);
 
 	if (!vclk || !dclk) {
-	/* keep the Bypass mode */
+		/* keep the Bypass mode */
 		return 0;
 	}
 

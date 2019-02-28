@@ -88,7 +88,9 @@ static unsigned int rds_iw_unmap_fastreg_list(struct rds_iw_mr_pool *pool,
 			int *unpinned);
 static void rds_iw_destroy_fastreg(struct rds_iw_mr_pool *pool, struct rds_iw_mr *ibmr);
 
-static int rds_iw_get_device(struct sockaddr_in *src, struct sockaddr_in *dst, struct rds_iw_device **rds_iwdev, struct rdma_cm_id **cm_id)
+static int rds_iw_get_device(struct sockaddr_in *src, struct sockaddr_in *dst,
+			     struct rds_iw_device **rds_iwdev,
+			     struct rdma_cm_id **cm_id)
 {
 	struct rds_iw_device *iwdev;
 	struct rds_iw_cm_id *i_cm_id;
@@ -118,9 +120,9 @@ static int rds_iw_get_device(struct sockaddr_in *src, struct sockaddr_in *dst, s
 				dst->sin_port);
 #ifdef WORKING_TUPLE_DETECTION
 			if (src_addr->sin_addr.s_addr == src->sin_addr.s_addr &&
-				src_addr->sin_port == src->sin_port &&
-				dst_addr->sin_addr.s_addr == dst->sin_addr.s_addr &&
-				dst_addr->sin_port == dst->sin_port) {
+			    src_addr->sin_port == src->sin_port &&
+			    dst_addr->sin_addr.s_addr == dst->sin_addr.s_addr &&
+			    dst_addr->sin_port == dst->sin_port) {
 #else
 			/* FIXME - needs to compare the local and remote
 			 * ipaddr/port tuple, but the ipaddr is the only
@@ -185,8 +187,6 @@ int rds_iw_update_cm_id(struct rds_iw_device *rds_iwdev, struct rdma_cm_id *cm_i
 
 	src_addr = (struct sockaddr_in *)&cm_id->route.addr.src_addr;
 	dst_addr = (struct sockaddr_in *)&cm_id->route.addr.dst_addr;
-
-
 
 	rc = rds_iw_get_device(src_addr, dst_addr, &rds_iwdev_old, &pcm_id);
 	if (rc)

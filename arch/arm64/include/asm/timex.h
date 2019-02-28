@@ -26,5 +26,4 @@
 
 #include <asm-generic/timex.h>
 
-
 #endif

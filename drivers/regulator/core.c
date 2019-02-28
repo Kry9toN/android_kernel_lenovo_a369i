@@ -1703,12 +1703,12 @@ static int _regulator_do_disable(struct regulator_dev *rdev)
 	trace_regulator_disable(rdev_get_name(rdev));
 
 	if (rdev->ena_pin) {
-		  if (rdev->ena_gpio_state) {
-			  ret = regulator_ena_gpio_ctrl(rdev, false);
-			  if (ret < 0)
-				  return ret;
-			  rdev->ena_gpio_state = 0;
-		  }
+		if (rdev->ena_gpio_state) {
+			ret = regulator_ena_gpio_ctrl(rdev, false);
+			if (ret < 0)
+				return ret;
+			rdev->ena_gpio_state = 0;
+		}
 
 	} else if (rdev->desc->ops->disable) {
 		ret = rdev->desc->ops->disable(rdev);
@@ -3618,9 +3618,6 @@ regulator_register(const struct regulator_desc *regulator_desc,
 				 config->ena_gpio, ret);
 			goto wash;
 		}
-
-
-
 	}
 
 	/* set regulator constraints */
@@ -3792,7 +3789,7 @@ int regulator_suspend_finish(void)
 			if (!_regulator_is_enabled(rdev)) {
 				error = _regulator_do_enable(rdev);
 				if (error)
-				ret = error;
+					ret = error;
 			}
 		} else {
 			if (!has_full_constraints)
