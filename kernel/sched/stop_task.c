@@ -1,7 +1,4 @@
 #include "sched.h"
-#ifdef CONFIG_HMP_TRACER
-#include <trace/events/sched.h>
-#endif
 
 /*
  * stop-task scheduling class.
@@ -42,24 +39,12 @@ static void
 enqueue_task_stop(struct rq *rq, struct task_struct *p, int flags)
 {
 	inc_nr_running(rq);
-#ifdef CONFIG_HMP_TRACER
-	trace_sched_runqueue_length(rq->cpu,rq->nr_running);
-#endif
-        #ifdef CONFIG_MET_SCHED_HMP
-       	RqLen(smp_processor_id(),rq->nr_running);
-        #endif
 }
 
 static void
 dequeue_task_stop(struct rq *rq, struct task_struct *p, int flags)
 {
 	dec_nr_running(rq);
-#ifdef CONFIG_HMP_TRACER
-	trace_sched_runqueue_length(rq->cpu,rq->nr_running);
-#endif
-        #ifdef CONFIG_MET_SCHED_HMP
-       	RqLen(smp_processor_id(),rq->nr_running);
-        #endif
 }
 
 static void yield_task_stop(struct rq *rq)

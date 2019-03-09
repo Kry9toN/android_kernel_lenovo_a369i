@@ -12,7 +12,6 @@
 #include <asm/sections.h>
 #include <asm/tlb.h>
 
-
 struct saved_context saved_context;
 
 /*

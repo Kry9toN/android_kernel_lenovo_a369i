@@ -74,7 +74,7 @@ static inline void inet_diag_unlock_handler(
 static size_t inet_sk_attr_size(void)
 {
 	return	  nla_total_size(sizeof(struct tcp_info))
-		+ nla_total_size(1) /* INET_DIAG_SHUTDOWN */	
+		+ nla_total_size(1) /* INET_DIAG_SHUTDOWN */
 		+ nla_total_size(1) /* INET_DIAG_TOS */
 		+ nla_total_size(1) /* INET_DIAG_TCLASS */
 		+ nla_total_size(sizeof(struct inet_diag_meminfo))

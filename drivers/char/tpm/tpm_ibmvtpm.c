@@ -148,8 +148,8 @@ static int tpm_ibmvtpm_send(struct tpm_chip *chip, u8 *buf, size_t count)
 	crq.len = cpu_to_be16(count);
 	crq.data = cpu_to_be32(ibmvtpm->rtce_dma_handle);
 
-rc = ibmvtpm_send_crq(ibmvtpm->vdev, be64_to_cpu(word[0]),
-		      be64_to_cpu(word[1]));
+	rc = ibmvtpm_send_crq(ibmvtpm->vdev, be64_to_cpu(word[0]),
+			      be64_to_cpu(word[1]));
 	if (rc != H_SUCCESS) {
 		dev_err(ibmvtpm->dev, "tpm_ibmvtpm_send failed rc=%d\n", rc);
 		rc = 0;

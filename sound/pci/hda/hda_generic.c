@@ -673,7 +673,7 @@ static void init_amp(struct hda_codec *codec, hda_nid_t nid, int dir, int idx)
 
 /* update the amp, doing in stereo or mono depending on NID */
 static int update_amp(struct hda_codec *codec, hda_nid_t nid, int dir, int idx,
-		     unsigned int mask, unsigned int val)
+		      unsigned int mask, unsigned int val)
 {
 	if (is_stereo_amps(codec, nid, dir))
 		return snd_hda_codec_amp_stereo(codec, nid, dir, idx,
@@ -4268,11 +4268,11 @@ static void mute_all_mixer_nid(struct hda_codec *codec, hda_nid_t mix)
 	has_amp = nid_has_mute(codec, mix, HDA_INPUT);
 	for (i = 0; i < nums; i++) {
 		if (has_amp)
-		update_amp(codec, mix, HDA_INPUT, i,
-			   0xff, HDA_AMP_MUTE);
+			update_amp(codec, mix, HDA_INPUT, i,
+				   0xff, HDA_AMP_MUTE);
 		else if (nid_has_volume(codec, conn[i], HDA_OUTPUT))
-		update_amp(codec, conn[i], HDA_OUTPUT, 0,
-			   0xff, HDA_AMP_MUTE);
+			update_amp(codec, conn[i], HDA_OUTPUT, 0,
+				   0xff, HDA_AMP_MUTE);
 	}
 }
 

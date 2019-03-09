@@ -131,7 +131,7 @@ static void print_amp_caps(struct snd_info_buffer *buffer,
 
 /* is this a stereo widget or a stereo-to-mono mix? */
 static bool is_stereo_amps(struct hda_codec *codec, hda_nid_t nid,
-			  int dir, unsigned int wcaps, int indices)
+			   int dir, unsigned int wcaps, int indices)
 {
 	hda_nid_t conn;
 

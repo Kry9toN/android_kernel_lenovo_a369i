@@ -420,6 +420,7 @@ static int lp8788_psy_register(struct platform_device *pdev,
 	if (power_supply_register(&pdev->dev, &pchg->battery)) {
 		power_supply_unregister(&pchg->charger);
 		return -EPERM;
+	}
 
 	return 0;
 }

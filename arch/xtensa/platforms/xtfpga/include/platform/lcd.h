@@ -12,7 +12,6 @@
 #define __XTENSA_XTAVNET_LCD_H
 
 #ifdef CONFIG_XTFPGA_LCD
-
 /* Display string STR at position POS on the LCD. */
 void lcd_disp_at_pos(char *str, unsigned char pos);
 

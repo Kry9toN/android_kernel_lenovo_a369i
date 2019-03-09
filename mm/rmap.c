@@ -62,11 +62,6 @@
 
 #include "internal.h"
 
-#define MUTEX_RETRY_COUNT (65536)
-#define MUTEX_RETRY_RESCHED (1024)
-
-
-
 static struct kmem_cache *anon_vma_cachep;
 static struct kmem_cache *anon_vma_chain_cachep;
 
@@ -109,7 +104,7 @@ static inline void anon_vma_free(struct anon_vma *anon_vma)
 	 * happen _before_ what follows.
 	 */
 	might_sleep();
-	if (anon_vma->root && rwsem_is_locked(&anon_vma->root->rwsem)) {
+	if (rwsem_is_locked(&anon_vma->root->rwsem)) {
 		anon_vma_lock_write(anon_vma);
 		anon_vma_unlock_write(anon_vma);
 	}
@@ -819,9 +814,7 @@ static int page_referenced_file(struct page *page,
 	 */
 	BUG_ON(!PageLocked(page));
 
-	//To avoid deadlock
-	if (!mutex_trylock(&mapping->i_mmap_mutex))
-		return 1; //put in active list
+	mutex_lock(&mapping->i_mmap_mutex);
 
 	/*
 	 * i_mmap_mutex does not stabilize mapcount at all, but mapcount
@@ -1535,23 +1528,11 @@ static int try_to_unmap_file(struct page *page, enum ttu_flags flags)
 	unsigned long max_nl_cursor = 0;
 	unsigned long max_nl_size = 0;
 	unsigned int mapcount;
-	int retry = 0;
-
 
 	if (PageHuge(page))
 		pgoff = page->index << compound_order(page);
 
-	while (!mutex_trylock(&mapping->i_mmap_mutex)) {
-                retry++;
-                if (!(retry % MUTEX_RETRY_RESCHED))
-                        cond_resched();
-                if (retry > MUTEX_RETRY_COUNT) {
-                        printk(KERN_ERR ">> failed to lock i_mmap_mutex in try_to_unmap_file <<\n");
-                        return SWAP_FAIL;
-                }
-        }
-
-
+	mutex_lock(&mapping->i_mmap_mutex);
 	vma_interval_tree_foreach(vma, &mapping->i_mmap, pgoff, pgoff) {
 		unsigned long address = vma_address(page, vma);
 		ret = try_to_unmap_one(page, vma, address, flags);
@@ -1697,7 +1678,7 @@ void __put_anon_vma(struct anon_vma *anon_vma)
 	struct anon_vma *root = anon_vma->root;
 
 	anon_vma_free(anon_vma);
-	if (root && root != anon_vma && atomic_dec_and_test(&root->refcount))
+	if (root != anon_vma && atomic_dec_and_test(&root->refcount))
 		anon_vma_free(root);
 }
 

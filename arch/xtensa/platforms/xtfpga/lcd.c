@@ -20,6 +20,7 @@
 /* LCD instruction and data addresses. */
 #define LCD_INSTR_ADDR		((char *)IOADDR(CONFIG_XTFPGA_LCD_BASE_ADDR))
 #define LCD_DATA_ADDR		(LCD_INSTR_ADDR + 4)
+
 #define LCD_CLEAR		0x1
 #define LCD_DISPLAY_ON		0xc
 

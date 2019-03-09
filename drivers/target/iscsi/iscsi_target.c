@@ -4130,7 +4130,7 @@ int iscsit_close_connection(
 	 * and to avoid iscsi_conn pointer dereference in iser-target code.
 	 */
 	if (conn->conn_transport->transport_type == ISCSI_TCP)
-				complete(&conn->conn_logout_comp);
+		complete(&conn->conn_logout_comp);
 
 	if (!strcmp(current->comm, ISCSI_RX_THREAD_NAME)) {
 		if (conn->tx_thread &&

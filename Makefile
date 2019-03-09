@@ -1,6 +1,6 @@
 VERSION = 3
 PATCHLEVEL = 10
-SUBLEVEL = 89
+SUBLEVEL = 90
 EXTRAVERSION =
 NAME = TOSSUG Baby Fish
 
@@ -375,7 +375,6 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -Wno-format-security \
 		   -fno-delete-null-pointer-checks \
 		   -std=gnu89
-		   -Werror=format -Werror=int-to-pointer-cast -Werror=pointer-to-int-cast
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=

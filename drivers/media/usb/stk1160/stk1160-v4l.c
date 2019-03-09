@@ -250,7 +250,6 @@ static int stk1160_stop_streaming(struct stk1160 *dev)
 	 * won't be running. This is required to safely release the
 	 * current buffer (dev->isoc_ctl.buf).
 	 */
-
 	stk1160_cancel_isoc(dev);
 
 	/*

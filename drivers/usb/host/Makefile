@@ -2,7 +2,7 @@
 # Makefile for USB Host Controller Drivers
 #
 
-include $(srctree)/drivers/misc/mediatek/Makefile.custom
+ccflags-$(CONFIG_USB_DEBUG) := -DDEBUG
 
 isp1760-y := isp1760-hcd.o isp1760-if.o
 

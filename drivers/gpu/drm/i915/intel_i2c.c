@@ -277,8 +277,8 @@ gmbus_wait_idle(struct drm_i915_private *dev_priv)
 
 static int
 gmbus_xfer_read_chunk(struct drm_i915_private *dev_priv,
-		     unsigned short addr, u8 *buf, unsigned int len,
-		     u32 gmbus1_index)
+		      unsigned short addr, u8 *buf, unsigned int len,
+		      u32 gmbus1_index)
 {
 	int reg_offset = dev_priv->gpio_mmio_base;
 
@@ -319,7 +319,7 @@ gmbus_xfer_read(struct drm_i915_private *dev_priv, struct i2c_msg *msg,
 	do {
 		len = min(rx_size, GMBUS_BYTE_COUNT_MAX);
 
-		ret = gmbus_xfer_read_chunk(dev_priv, msg->addr
+		ret = gmbus_xfer_read_chunk(dev_priv, msg->addr,
 					    buf, len, gmbus1_index);
 		if (ret)
 			return ret;
@@ -330,9 +330,10 @@ gmbus_xfer_read(struct drm_i915_private *dev_priv, struct i2c_msg *msg,
 
 	return 0;
 }
+
 static int
 gmbus_xfer_write_chunk(struct drm_i915_private *dev_priv,
-		      unsigned short addr, u8 *buf, unsigned int len)
+		       unsigned short addr, u8 *buf, unsigned int len)
 {
 	int reg_offset = dev_priv->gpio_mmio_base;
 	unsigned int chunk_size = len;
